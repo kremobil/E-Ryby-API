@@ -37,4 +37,17 @@ pip install Flask
 pip install Flask-Cors
 ```
 ##Deployment
-This app is deployed on heroku and can be access from this [link](google.com)
+This app is deployed on heroku and can be access from this [link](https://ryby-api.herokuapp.com)
+##Endpoints
+###/fishes
+####Get method
+this endpoint will return a list of all fishes in json format.
+#####example:
+[https://ryby-api.herokuapp.com/fishes](https://ryby-api.herokuapp.com/fishes)
+###/fish/name
+#### Get method
+this endpoint will a single record which contains the fish and return it in json format.
+##### example:
+[https://ryby-api.herokuapp.com/fish/sum](https://ryby-api.herokuapp.com/fish/sum)
+#### other methods
+i will no show other methods here because only site administration can access it with JWT token.
