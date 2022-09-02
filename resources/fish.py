@@ -1,6 +1,8 @@
+import werkzeug
 from flask_restful import Resource, reqparse
 from models.fishes_model import Fishes_Model
 from flask_jwt import jwt_required
+from flask import send_file
 
 class Fish(Resource):
     parser = reqparse.RequestParser()
@@ -36,7 +38,6 @@ class Fish(Resource):
         help='is this fish protected?',
         default=False
     )
-
     def get(self, name):
         fish = Fishes_Model.find_by_name(name)
         if fish:
@@ -80,3 +81,16 @@ class Fish(Resource):
 class Fishes(Resource):
     def get(self):
         return {'fishes': [fish.json() for fish in Fishes_Model.query.all()]}
+
+class fishIMG(Resource):
+    def get(self, name):
+        return send_file(f'images//{name}.png')
+
+    def post(self, name):
+        parse = reqparse.RequestParser()
+        parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
+        args = parse.parse_args()
+        image_file = args['file']
+        image_file.save(f"images/{name}.png")
+        return send_file(f"images//{name}.png")
+
