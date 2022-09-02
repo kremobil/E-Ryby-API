@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from models.fishes_model import Fishes_Model
 from flask_jwt import jwt_required
 from flask import send_file
+import os
 
 class Fish(Resource):
     parser = reqparse.RequestParser()
@@ -83,14 +84,35 @@ class Fishes(Resource):
         return {'fishes': [fish.json() for fish in Fishes_Model.query.all()]}
 
 class fishIMG(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
+
     def get(self, name):
-        return send_file(f'images//{name}.png')
+        if os.path.exists(f'images/{name}.png'):
+            return send_file(f'images//{name}.png')
+        else:
+            return { 'message': f'image named {name} not found'}
 
     def post(self, name):
-        parse = reqparse.RequestParser()
-        parse.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
-        args = parse.parse_args()
+        args = self.parser.parse_args()
         image_file = args['file']
+        if os.path.exists(f'images/{name}.png'):
+            return { 'message': f'image named {name} already exists if you want to add new images try other name or if you want to update existing image just use put method instead'}
+
         image_file.save(f"images/{name}.png")
+
         return send_file(f"images//{name}.png")
 
+    def delete(self, name):
+        if os.path.exists(f'images/{name}.png'):
+            os.remove(f'images/{name}.png')
+        return { 'message': f'image named {name} successfully deleted' }
+
+    def put(self, name):
+        args = self.parser.parse_args()
+        image_file = args['file']
+        # saving file or overwrite it if file already exists
+        image_file.save(f"images/{name}.png")
+
+        return send_file(f"images//{name}.png")
