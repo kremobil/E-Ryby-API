@@ -31,5 +31,6 @@ cros = CORS(app)
 @jwt.auth_response_handler
 def customized_response_handler(access_token, identity):
     return {'access_token': access_token.decode('utf-8'), 'user': UserModel.find_by_id(identity.id).get_username()}
-# if __name__ == '__main__':
-app.run(port=2137, debug=True)
+
+if __name__ == '__main__':
+    app.run(port=2137, debug=True)
