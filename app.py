@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from flask_cors import CORS
 
@@ -14,7 +15,7 @@ from resources.user import UserRegister
 
 app = Flask(__name__)
 app.secret_key = 'wnikjuabniufrhiuawgh'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 
