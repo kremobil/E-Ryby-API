@@ -47,7 +47,53 @@ this endpoint will return a list of all fishes in json format.
 ###/fish/name
 #### Get method
 this endpoint will a single record which contains the fish and return it in json format.
-##### example:
-[https://ryby-api.herokuapp.com/fish/sum](https://ryby-api.herokuapp.com/fish/sum)
-#### other methods
-i will no show other methods here because only site administration can access it with JWT token.
+###### example: [https://ryby-api.herokuapp.com/fish/sum](https://ryby-api.herokuapp.com/fish/sum)
+
+#### Post method - JWT token required
+this endpoint allow you to add informations about fish to database.
+you must add data in json format. here is example of json file with information nedded to complete the request.
+
+```
+{
+    "latin_name": "lorem ipSUM",
+    "description": "test",
+    "bait": "robaki i ryby",
+    "protected": true,
+}
+```
+
+in this request we can give values:
+######"latin_name" - type:string, required: yes, here you must add the fish name in latin.
+######"description" - type:string, required: yes, here you must write the description about fish.
+######"bait" - type:string, required: no, you must give this value only if fish is not under the protection. just write what bait is needed to catch this fish.
+######"protected" - type:boolean, required: no, default:false ,set to True if fish is protected.
+######"attitude" - type:boolean, required: no, default:"Żeru spokojnego" ,if fish is aggressive set value to "Drapieżna"
+
+
+###### example: https://ryby-api.herokuapp.com/fish/sum
+#### Put method - JWT token required
+this endpoint allow you to add or update information about fish to database.
+you must add data in json format. here is example of json file with information nedded to complete the request.
+
+```
+{
+    "latin_name": "lorem ipSUM",
+    "description": "test",
+    "bait": "robaki i ryby",
+    "protected": true,
+}
+```
+
+in this request we can give values:
+######"latin_name" - type:string, required: yes, here you must add the fish name in latin.
+######"description" - type:string, required: yes, here you must write the description about fish.
+######"bait" - type:string, required: no, you must give this value only if fish is not under the protection. just write what bait is needed to catch this fish.
+######"protected" - type:boolean, required: no, default:false ,set to True if fish is protected.
+######"attitude" - type:boolean, required: no, default:"Żeru spokojnego" ,if fish is aggressive set value to "Drapieżna"
+
+
+###### example: https://ryby-api.herokuapp.com/fish/sum
+
+#### Delete method - JWT token required
+with this endpoint you can delete a record with fish from the database.
+###### example: [https://ryby-api.herokuapp.com/fish/sum](https://ryby-api.herokuapp.com/fish/sum)
